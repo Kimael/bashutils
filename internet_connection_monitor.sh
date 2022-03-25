@@ -3,14 +3,16 @@
 #Copied from: https://askubuntu.com/questions/522505/script-to-monitor-internet-connection-stability
 
 #***************************************
-# Requirements:
+# REQUIREMENTS
 # * SpeedTest CLI: sudo apt  install speedtest-cli
 # * AWK (might be replaced by 'cut')
 #***************************************
 
 #***************************************
-# For CRONTAB
-# */10 * * * * /location/of/my-internet-test.sh
+# CRONTAB
+# For Ubuntu, add to file '/etc/crontab':
+# */10 *  * * *   root    /home/msibelle/internet_connection_monitor.sh
+# and check with: grep -i cron /var/log/syslog
 #***************************************
 
 #LOG_FILE='/var/log/internet_test_'$(HOSTNAME)'.csv'
@@ -20,7 +22,6 @@ mkdir -p $(dirname ${LOG_FILE})
 
 DT=$(date '+%Y-%m-%dT%H:%M:%S')
 
-#sudo apt  install speedtest-cli
 SPEED_TEST_RES=$(speedtest-cli --simple 2>/dev/null)
 
 #set -o xtrace
