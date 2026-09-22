@@ -12,7 +12,7 @@ declare -r ENV_ETH_LAN_INTERFACE=${ENV_DEFAULT_ETH_LAN_INTERFACE}
 # Spécifique à Gentoo :
 declare -r ENV_WIFI_LAN_INTERFACE='wifi0'
 
-declare -r ENV_WIFI_SSID_RETRIEVAL_COMMAND="iw dev ${ENV_WIFI_LAN_INTERFACE} link | awk -F': ' '/SSID/ {print $2}'"
+declare -r ENV_WIFI_SSID_RETRIEVAL_COMMAND="iw dev ${ENV_WIFI_LAN_INTERFACE} link | awk -F': ' '/SSID/ {print \$2}'"
 
 
-declare -r ENV_ECHO_COMMAND='echo'
+declare -r ENV_ECHO_COMMAND='echo -e'

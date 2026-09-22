@@ -55,7 +55,7 @@ declare -r PUBLIC_IPV6=$(${ENV_HTTP_IPV6_CLIENT} -s ${ENV_PUBLIC_IP_PROVIDER_URL
 
 # Récupération de l'adresse IPv4 de vos interfaces LAN :
 declare -r WIFI_LAN_IP=$(ip -4 addr show ${ENV_WIFI_LAN_INTERFACE} | awk '/inet / {print $2}' | cut -d/ -f1)
-declare -r WIFI_LAN_SSID=$(${ENV_WIFI_SSID_RETRIEVAL_COMMAND})
+declare -r WIFI_LAN_SSID=$(eval "${ENV_WIFI_SSID_RETRIEVAL_COMMAND}")
 
 declare -r  ETH_LAN_IP=$(ip -4 addr show ${ENV_ETH_LAN_INTERFACE}  | awk '/inet / {print $2}' | cut -d/ -f1)
 
