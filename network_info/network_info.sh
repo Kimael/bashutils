@@ -95,7 +95,11 @@ case ${DISPLAY_MODE} in
       MSGBOX_CONTENT=${MSGBOX_CONTENT}'<br />'
       MSGBOX_CONTENT=${MSGBOX_CONTENT}"<font size='${CONF_FONT_SIZE}' color='${CONF_ETH_LAN_COLOR_NAME}'><b>&nbsp;${ETH_LAN_IP_DISPLAY}</b></font>"
 
-      kdialog --title 'Network information' --msgbox "${MSGBOX_CONTENT}"
+      # 1. Lancer kdialog en arrière-plan et récupérer son PID pour le tuer plus tard après N secondes :
+      kdialog --title "Network information (for ${ENV_KDIALOG_TIMEOUT} seconds)" --msgbox "${MSGBOX_CONTENT}" &
+      declare -i KDIALOG_PID=$!
+      # 2. Programmer la fermeture au bout de 5 secondes :
+      (sleep ${ENV_KDIALOG_TIMEOUT} && kill "${KDIALOG_PID}" 2>/dev/null) &
     ;;
   
   # De base, rien.
