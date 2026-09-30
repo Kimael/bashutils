@@ -2,8 +2,9 @@
 # 
 # À appeler depuis un terminal, ou le composant Plasma "Command output".
 # 
-# Mandatory param $1: environment name, to load configuration from the corresponding file ('kubuntu', 'gentoo', etc.)
+# Mandatory param $1: environment name, to load configuration from the corresponding file (eg: 'kubuntu', 'gentoo', etc.)
 # Mandatory param $2: display mode ('echo' or 'kdialog')
+# Opional param $3: user profile (eg: 'msi')
 # 
 # Requires:
 # - curl: to retrieve the public IP address.
@@ -14,12 +15,13 @@
 # 
 # Use cases:
 # ./network_info.sh gentoo echo 2> /dev/null
-# ./network_info.sh kubuntu kdialog 2> /dev/null
+# ./network_info.sh kubuntu kdialog msi 2> /dev/null
 # cd /home/msibelle/personnel/github/bashutils && ./network_info.sh kubuntu echo 2> /dev/null && cd - > /dev/null
-# cd /home/msibelle/personnel/github/bashutils && ./network_info.sh gentoo kdialog 2> /dev/null && cd - > /dev/null
+# cd /home/msibelle/personnel/github/bashutils && ./network_info.sh gentoo kdialog msi 2> /dev/null && cd - > /dev/null
 
 declare -r ENV_NAME=$1
 declare -r DISPLAY_MODE=$2
+declare -r USER_PROFILE=${3:-anonymous}
 
 
 ####
@@ -28,8 +30,9 @@ declare -r DISPLAY_MODE=$2
 # Valeurs par défaut : 
 source 'network_info-env_default.sh'
 
-# Configuration spécifique à l'environnement indiqué :
-source 'network_info-env_'${ENV_NAME}'.sh'
+# Configuration spécifique à l'environnement et au profile indiqués :
+source 'network_info-env_'${ENV_NAME}'_'${USER_PROFILE}'.sh'
+
 
 
 ####
